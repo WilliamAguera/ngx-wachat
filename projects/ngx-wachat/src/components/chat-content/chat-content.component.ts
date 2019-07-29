@@ -21,7 +21,7 @@ export class NgxWachatContentComponent implements OnInit {
 
   @Output() sendMessage: EventEmitter<string> = new EventEmitter();
 
-  @ViewChild('scrollContent') scrollContent: ElementRef;
+  @ViewChild('scrollContent', { static: true }) scrollContent: ElementRef;
 
   public control = new FormControl(null);
 
