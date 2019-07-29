@@ -5,6 +5,8 @@ Chat UI Component for Angular Applications
   [Live Demo](https://ngx-wachat-example.stackblitz.io)
 
   [Source Code](https://stackblitz.com/edit/ngx-wachat-example)
+  
+  ![](./chat.gif)
 
 ## Installation
 
