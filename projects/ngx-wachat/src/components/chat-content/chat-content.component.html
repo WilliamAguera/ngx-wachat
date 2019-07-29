@@ -1,0 +1,46 @@
+<div class="chat-content-wrapper">
+
+  <div class="chat-content"
+       #scrollContent
+       [style.minHeight]="'calc(' + height + ' - 84px)'"
+       [style.maxHeight]="'calc(' + height + ' - 84px)'">
+
+    <ng-container *ngFor="let message of messages">
+
+      <ng-container *ngIf="message?.origin?.id === destination?.id">
+        <ng-container *ngTemplateOutlet="templateFrom; context: { message: message }"></ng-container>
+      </ng-container>
+
+      <ng-container *ngIf="message?.origin?.id === origin?.id">
+        <ng-container *ngTemplateOutlet="templateTo; context: { message: message }"></ng-container>
+      </ng-container>
+
+    </ng-container>
+
+  </div>
+
+  <textarea [placeholder]="placeholder"
+            [formControl]="control"
+            (keydown.enter)="$event.preventDefault(); onKeyEnter()"
+            class="chat-input">
+  </textarea>
+
+</div>
+
+<ng-template #templateFrom let-message="message">
+  <div class="message-wrapper">
+    <div class="chat-from">
+      <p>{{ message.message }}</p>
+      <p class="chat-date">{{ message.date | date:'HH:ss' }}</p>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #templateTo let-message="message">
+  <div class="message-wrapper-to">
+    <div class="chat-to">
+      <p>{{ message.message }}</p>
+      <p class="chat-date">{{ message.date | date:'HH:ss' }}</p>
+    </div>
+  </div>
+</ng-template>

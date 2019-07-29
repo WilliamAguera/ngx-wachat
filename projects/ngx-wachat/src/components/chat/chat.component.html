@@ -1,0 +1,67 @@
+<div class="chat-wrapper"
+     [style.minHeight]="height"
+     [style.maxHeight]="height"
+     [style.width]="width">
+  <div class="chat-header" [style.backgroundColor]="color">
+    <ng-container *ngIf="!messaging; else destinationTemplate">
+      <div class="chat-status-wrapper">
+        <div class="chat-status" (click)="selectStatus(online)" [class.selected]="selected === online">Online</div>
+        <div class="chat-status" (click)="selectStatus(offline)" [class.selected]="selected === offline">Offline</div>
+      </div>
+    </ng-container>
+  </div>
+  <div class="chat-container"
+       [style.minHeight]="'calc(' + height + ' - 40px)'"
+       [style.maxHeight]="'calc(' + height + ' - 40px)'" *ngIf="!messaging; else content">
+    <ng-container *ngIf="selected === online">
+      <ng-container *ngIf="(contacts | status:[online]) as online; else emptyTemplate">
+        <ng-container *ngFor="let contact of online">
+          <ng-container *ngTemplateOutlet="contactTemplate; context: { item: contact }"></ng-container>
+        </ng-container>
+      </ng-container>
+    </ng-container>
+
+    <ng-container *ngIf="selected === offline">
+      <ng-container *ngIf="(contacts | status:[offline, busy]) as offline; else emptyTemplate">
+        <ng-container *ngFor="let contact of offline">
+          <ng-container *ngTemplateOutlet="contactTemplate; context: { item: contact }"></ng-container>
+        </ng-container>
+      </ng-container>
+    </ng-container>
+
+    <ng-template #contactTemplate let-contact="item">
+      <div class="chat-contact" (click)="selectTo(contact)">
+        <img *ngIf="contact?.avatar" [style.borderColor]="statusColor[ contact?.status ]" class="avatar" [src]="contact?.avatar">
+        <img *ngIf="!contact?.avatar" [style.borderColor]="statusColor[ contact?.status ]" class="avatar no-avatar">
+        <div class="contact-info">
+          <span>{{ contact?.name }}</span>
+          <span>{{ contact?.description }}</span>
+        </div>
+      </div>
+    </ng-template>
+
+  </div>
+</div>
+
+<ng-template #emptyTemplate>
+  <div class="chat-emptylist">
+    <img class="chat-image">
+    <span class="label">{{ emptyListDescription }}</span>
+  </div>
+</ng-template>
+
+<ng-template #content>
+  <ngx-wachat-content (sendMessage)="onSendMessage($event)"
+                      [placeholder]="placeholder"
+                      [origin]="origin"
+                      [destination]="destination"
+                      [height]="height">
+  </ngx-wachat-content>
+</ng-template>
+
+<ng-template #destinationTemplate>
+  <div class="chat-header-messaging">
+    <div (click)="messaging = false" class="chat-icon-back"><i class="ion-ios-arrow-back"></i></div>
+    <span class="chat-label-name">{{ destination.name }}</span>
+  </div>
+</ng-template>

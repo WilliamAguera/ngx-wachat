@@ -1,0 +1,12 @@
+<!--The content below is only a placeholder and can be replaced.-->
+
+<div class="content-wrapper">
+  <div style="margin: 0 20px; font-family: Segoe UI;">
+    <ngx-wachat [contacts]="contacts" [origin]="from" (sendMessage)="onSendMessage($event)"></ngx-wachat>
+    <span>This is Taylor</span>
+  </div>
+  <div style="margin: 0 20px; font-family: Segoe UI;">
+    <ngx-wachat [contacts]="contacts2" [origin]="from2" (sendMessage)="onSendMessage($event)"></ngx-wachat>
+    <span>This is Paul</span>
+  </div>
+</div>
