@@ -1,24 +1,90 @@
-# NgxWachat
+# NgxChat
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.2.0.
+Chat UI Component for Angular Applications
 
-## Code scaffolding
+  [Live Demo](https://ngx-wachat-example.stackblitz.io)
 
-Run `ng generate component component-name --project ngx-wachat` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project ngx-wachat`.
-> Note: Don't forget to add `--project ngx-wachat` or else it will be added to the default project in your `angular.json` file. 
+  [Source Code](https://stackblitz.com/edit/ngx-wachat-example)
+  
+  ![](./chat.gif)
 
-## Build
+## Installation
 
-Run `ng build ngx-wachat` to build the project. The build artifacts will be stored in the `dist/` directory.
+Use the package manager [npm](https://www.npmjs.com/) to install the chat.
 
-## Publishing
+```bash
+npm install ngx-wachat --save
+```
 
-After building your library with `ng build ngx-wachat`, go to the dist folder `cd dist/ngx-wachat` and run `npm publish`.
+## Usage
 
-## Running unit tests
+```typescript
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
+import { NgModule } from '@angular/core';
 
-Run `ng test ngx-wachat` to execute the unit tests via [Karma](https://karma-runner.github.io).
+import { AppComponent } from './app.component';
+import { NgxWachatModule} from 'ngx-wachat';
 
-## Further help
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule,
+    NgxWachatModule.forRoot()
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+```
+
+In Your HMTL
+```html
+<ngx-wachat [contacts]="contacts" [origin]="from" (sendMessage)="onSendMessage($event)"></ngx-wachat>
+```
+
+
+## Properties
+| Property| Description | Type | Default
+| --- | --- | --- | --- |
+| `contacts` | Array of contacts | `ChatContact[]` | []
+| `origin` | User origin of the message | `ChatContact` | null
+| `placeholder` | Placeholder text of field that send's message | `string` | Say Hi
+| `height` | Height of chat window | `string` | 400px
+| `width` | Width of chat window | `string` | 350px
+| `color` | Header color of chat window | `string` | #629ce4
+| `emptyListDescription` | Text of label when list of contacts is empty | `string` | No Contacts Found
+
+## Events
+| Event | Description | value
+| --- | --- | ---
+| `sendMessage` | Emitted when user press enter on field to send message | ChatMessage
+
+## Methods `ChatService`
+| Method | Description | Parameter
+| --- | --- | ---
+| `loadMessages` | Method that (first) load messages to chat | ChatMessage[]
+| `sendMessage` | Method that append message received from server | ChatMessage
+
+## Interface `ChatContact`
+| Property| Description | Type
+| --- | --- | --- |
+| `id` | Id of chat contact | `string or number`
+| `name` | Name of chat user | `string`
+| `description` | Sub text shown just below the name of chat user | `string`
+| `status` | Status of chat user on chat | `ChatStatus`
+| `avatar` | Path of avatar image | `string`
+
+## Interface `ChatMessage`
+| Property| Description | Type
+| --- | --- | --- |
+| `origin`| User chat, origin of the message | `ChatContact`
+| `destination` | User chat, destination of the message | `ChatContact`
+| `message` | The string message | `string`
+| `date` | Date of message ( generated from server or not) | `Date`
+
+## License
+[MIT](https://choosealicense.com/licenses/mit/)
