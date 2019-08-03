@@ -86,5 +86,8 @@ In Your HMTL
 | `message` | The string message | `string`
 | `date` | Date of message ( generated from server or not) | `Date`
 
+## For Google
+angular ui components angular 2 components, angular 4 components, angular 8 components ng2, ng components ng-components ng2-components angular2 components chat-ui, chat component, angular chat
+
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
